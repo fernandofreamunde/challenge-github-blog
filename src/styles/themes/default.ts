@@ -14,4 +14,6 @@ export const defaultTheme = {
   baseProfile: '#0B1B2B',
   baseBg: '#071422',
   baseInput: '#040F1A',
+
+  effectBlue: '#14589C',
 } as const
