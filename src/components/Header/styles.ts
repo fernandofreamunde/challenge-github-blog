@@ -38,7 +38,7 @@ export const NeonEffectRectangle = styled.div`
 
   margin: 10rem auto;
 
-  height: 3.25rem;
+  height: 1.5rem;
   width: 65rem;
   filter: blur(106px);
 `
