@@ -1,51 +1,45 @@
 import {
   faArrowUpRightFromSquare,
-  faBuilding,
-  faUserGroup,
+  faCalendarDay,
+  faChevronLeft,
+  faComment,
 } from '@fortawesome/free-solid-svg-icons'
 import {
-  ProfileCardContainer,
+  TitleCardContainer,
   ProfileInfo,
   ProfileInfoFooter,
   ProfileInfoHeader,
-  ProfilePicture,
 } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
-export function ProfileCard() {
+export function TitleCard() {
   return (
-    <ProfileCardContainer>
-      <ProfilePicture
-        src="https://ui-avatars.com/api/?size=1000&name=Marcus+Aurelius"
-        alt=""
-      />
+    <TitleCardContainer>
       <ProfileInfo>
         <ProfileInfoHeader>
-          <h1>Marcus Aurelius</h1>
+          <a href="https://github.com">
+            <FontAwesomeIcon icon={faChevronLeft} /> go back
+          </a>
           <a href="https://github.com">
             github <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
           </a>
         </ProfileInfoHeader>
 
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <h1>JavaScript data types and data structures</h1>
 
         <ProfileInfoFooter>
           <span>
             <FontAwesomeIcon icon={faGithub} /> gh-profile
           </span>
           <span>
-            <FontAwesomeIcon icon={faBuilding} /> Magma Studio
+            <FontAwesomeIcon icon={faCalendarDay} /> 1 day ago
           </span>
           <span>
-            <FontAwesomeIcon icon={faUserGroup} /> 21
+            <FontAwesomeIcon icon={faComment} /> 21 comments
           </span>
         </ProfileInfoFooter>
       </ProfileInfo>
-    </ProfileCardContainer>
+    </TitleCardContainer>
   )
 }
