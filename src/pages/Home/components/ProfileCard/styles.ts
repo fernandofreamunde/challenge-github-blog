@@ -30,7 +30,6 @@ export const ProfileInfoHeader = styled.div`
   margin: 0.5rem 0;
 
   a {
-    font-weight: bold;
     color: ${(props) => props.theme.brandBlue};
     text-transform: uppercase;
     svg {
