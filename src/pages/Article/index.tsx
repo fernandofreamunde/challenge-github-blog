@@ -1,11 +1,9 @@
-import { Header } from '../../components/Header'
 import { TitleCard } from './components/TitleCard'
 import { ArticleContent } from './styles'
 
 export function Article() {
   return (
     <>
-      <Header />
       <TitleCard />
 
       <ArticleContent>
