@@ -1,3 +1,4 @@
+import { useContext, useEffect } from 'react'
 import { ProfileCard } from './components/ProfileCard'
 import {
   MainContainer,
@@ -5,8 +6,16 @@ import {
   PostContainer,
   SearchAndPubData,
 } from './styles'
+import { ArticleContext } from '../../contexts/ArticleContext'
+import { countDateToNow } from '../../utils/formatter'
 
 export function Home() {
+  const { articles, fetchArticles } = useContext(ArticleContext)
+
+  useEffect(() => {
+    fetchArticles()
+  }, [fetchArticles])
+
   return (
     <>
       <ProfileCard />
@@ -24,74 +33,17 @@ export function Home() {
         </SearchAndPubData>
 
         <PostContainer>
-          <PostCard>
-            <span>
-              <h2>TypeScript data types and things</h2>
-              <div>1d ago</div>
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni a
-              commodi nesciunt, quibusdam veritatis ipsa sed, optio maiores
-              commodi nesciunt, quibusdam veritatis ipsa sed, optio maiores
-              commodi nesciunt, quibusdam veritatis ipsa sed, optio maiores
-              odio.
-            </p>
-          </PostCard>
-          <PostCard>
-            <span>
-              <h2>TypeScript data types and things</h2>
-              <div>1d ago</div>
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni a
-              commodi nesciunt, quibusdam veritatis ipsa sed, optio maiores
-              odio.
-            </p>
-          </PostCard>
-          <PostCard>
-            <span>
-              <h2>TypeScript data types and things</h2>
-              <div>1d ago</div>
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni a
-              commodi nesciunt, quibusdam veritatis ipsa sed, optio maiores
-              odio.
-            </p>
-          </PostCard>
-          <PostCard>
-            <span>
-              <h2>TypeScript data types and things</h2>
-              <div>1d ago</div>
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni a
-              commodi nesciunt, quibusdam veritatis ipsa sed, optio maiores
-              odio.
-            </p>
-          </PostCard>
-          <PostCard>
-            <span>
-              <h2>TypeScript data types and things</h2>
-              <div>1d ago</div>
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni a
-              commodi nesciunt, quibusdam veritatis ipsa sed, optio maiores
-              odio.
-            </p>
-          </PostCard>
-          <PostCard>
-            <span>
-              <h2>TypeScript data types and things</h2>
-              <div>1d ago</div>
-            </span>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni a
-              commodi nesciunt, quibusdam veritatis ipsa sed, optio maiores
-              odio.
-            </p>
-          </PostCard>
+          {articles.map((article) => {
+            return (
+              <PostCard key={article.id}>
+                <span>
+                  <h2>{article.title}</h2>
+                  <div>{countDateToNow(article.createdAt)}</div>
+                </span>
+                <p>{article.body.substring(0, 230) + '...'}</p>
+              </PostCard>
+            )
+          })}
         </PostContainer>
       </MainContainer>
     </>
