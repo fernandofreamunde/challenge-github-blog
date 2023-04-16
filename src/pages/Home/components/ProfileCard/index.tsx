@@ -12,37 +12,38 @@ import {
 } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { useContext, useEffect } from 'react'
+import { ArticleContext } from '../../../../contexts/ArticleContext'
 
 export function ProfileCard() {
+  const { profile, fetchProfile } = useContext(ArticleContext)
+
+  useEffect(() => {
+    fetchProfile()
+  }, [fetchProfile])
+
   return (
     <ProfileCardContainer>
-      <ProfilePicture
-        src="https://ui-avatars.com/api/?size=1000&name=Marcus+Aurelius"
-        alt=""
-      />
+      <ProfilePicture src={profile.avatarUrl} alt="" />
       <ProfileInfo>
         <ProfileInfoHeader>
-          <h1>Marcus Aurelius</h1>
-          <a href="https://github.com">
+          <h1>{profile.name}</h1>
+          <a href={profile.profileUrl}>
             github <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
           </a>
         </ProfileInfoHeader>
 
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p>{profile.bio}</p>
 
         <ProfileInfoFooter>
           <span>
-            <FontAwesomeIcon icon={faGithub} /> gh-profile
+            <FontAwesomeIcon icon={faGithub} /> {profile.handle}
           </span>
           <span>
-            <FontAwesomeIcon icon={faBuilding} /> Magma Studio
+            <FontAwesomeIcon icon={faBuilding} /> {profile.company}
           </span>
           <span>
-            <FontAwesomeIcon icon={faUserGroup} /> 21
+            <FontAwesomeIcon icon={faUserGroup} /> {profile.followers}
           </span>
         </ProfileInfoFooter>
       </ProfileInfo>

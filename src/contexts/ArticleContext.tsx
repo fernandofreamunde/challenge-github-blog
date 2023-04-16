@@ -13,10 +13,23 @@ interface Article {
   updatedAt: Date
 }
 
+interface Profile {
+  id: number
+  handle: string
+  avatarUrl: string
+  bio: string
+  name: string
+  company: string
+  profileUrl: string
+  followers: number
+}
+
 interface ArticleContextType {
   articleCount: number
+  profile: Profile
   articles: Article[]
   fetchArticles: (query?: string) => Promise<void>
+  fetchProfile: () => Promise<void>
 }
 
 export const ArticleContext = createContext({} as ArticleContextType)
@@ -28,6 +41,7 @@ interface ArticleContextProps {
 export function ArticleContextProvider({ children }: ArticleContextProps) {
   const [articles, setArticles] = useState<Article[]>([])
   const [articleCount, setArticleCount] = useState(0)
+  const [profile, setProfile] = useState({} as Profile)
 
   const fetchArticles = useCallback(async (query?: string) => {
     const q = query
@@ -61,8 +75,27 @@ export function ArticleContextProvider({ children }: ArticleContextProps) {
     setArticles(articles)
   }, [])
 
+  const fetchProfile = useCallback(async () => {
+    const response: any = await api.get('users/fernandofreamunde')
+
+    const p = {
+      id: response.data.id,
+      avatarUrl: response.data.avatar_url,
+      bio: response.data.bio,
+      name: response.data.name,
+      company: response.data.company,
+      profileUrl: response.data.html_url,
+      followers: response.data.followers,
+      handle: response.data.login,
+    }
+
+    setProfile(p)
+  }, [])
+
   return (
-    <ArticleContext.Provider value={{ articleCount, articles, fetchArticles }}>
+    <ArticleContext.Provider
+      value={{ profile, articleCount, articles, fetchArticles, fetchProfile }}
+    >
       {children}
     </ArticleContext.Provider>
   )
