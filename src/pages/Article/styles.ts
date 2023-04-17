@@ -9,7 +9,9 @@ export const ArticleContent = styled.article`
   p {
     margin-bottom: 1.5rem;
   }
-  /* pre {
-    margin-: 1rem;
-  } */
+
+  pre {
+    padding: 1rem;
+    background-color: ${(props) => props.theme.basePost};
+  }
 `

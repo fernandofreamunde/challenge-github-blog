@@ -4,6 +4,7 @@ import { ArticleContent } from './styles'
 import { useContext, useEffect } from 'react'
 import { ArticleContext } from '../../contexts/ArticleContext'
 import { dateFormatter } from '../../utils/formatter'
+import ReactMarkdown from 'react-markdown'
 
 export function Article() {
   const { id } = useParams()
@@ -27,7 +28,7 @@ export function Article() {
       />
 
       <ArticleContent>
-        <p>{activeArticle.body}</p>
+        <ReactMarkdown>{activeArticle.body}</ReactMarkdown>
       </ArticleContent>
     </>
   )
