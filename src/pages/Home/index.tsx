@@ -8,6 +8,7 @@ import {
 } from './styles'
 import { ArticleContext } from '../../contexts/ArticleContext'
 import { countDateToNow } from '../../utils/formatter'
+import { Link } from 'react-router-dom'
 
 export function Home() {
   const { articles, fetchArticles } = useContext(ArticleContext)
@@ -35,13 +36,15 @@ export function Home() {
         <PostContainer>
           {articles.map((article) => {
             return (
-              <PostCard key={article.id}>
-                <span>
-                  <h2>{article.title}</h2>
-                  <div>{countDateToNow(article.createdAt)}</div>
-                </span>
-                <p>{article.body.substring(0, 230) + '...'}</p>
-              </PostCard>
+              <Link key={article.id} to={'article/' + article.issueNumber}>
+                <PostCard>
+                  <span>
+                    <h2>{article.title}</h2>
+                    <div>{countDateToNow(article.createdAt)}</div>
+                  </span>
+                  <p>{article.body.substring(0, 230) + '...'}</p>
+                </PostCard>
+              </Link>
             )
           })}
         </PostContainer>

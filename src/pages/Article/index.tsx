@@ -1,31 +1,33 @@
+import { useParams } from 'react-router-dom'
 import { TitleCard } from './components/TitleCard'
 import { ArticleContent } from './styles'
+import { useContext, useEffect } from 'react'
+import { ArticleContext } from '../../contexts/ArticleContext'
+import { dateFormatter } from '../../utils/formatter'
 
 export function Article() {
+  const { id } = useParams()
+  const { profile, activeArticle, selectActiveArticle } =
+    useContext(ArticleContext)
+
+  useEffect(() => {
+    if (id) {
+      selectActiveArticle(Number(id))
+    }
+  }, [selectActiveArticle, id])
+
   return (
     <>
-      <TitleCard />
+      <TitleCard
+        title={activeArticle.title}
+        authorHandle={profile.handle}
+        commentCount={activeArticle.commentCount}
+        createdAtTimestamp={dateFormatter.format(activeArticle.createdAt)}
+        githubLink={activeArticle.githubLink}
+      />
 
       <ArticleContent>
-        <p>
-          <b>
-            Programming languages all have built-in data structures, but these
-            often differ from one language to another.
-          </b>{' '}
-          This article attempts to list the built-in data structures available
-          in JavaScript and what properties they have. These can be used to
-          build other data structures. Wherever possible, comparisons with other
-          languages are drawn.
-        </p>
-        <p>
-          Dynamic typing JavaScript is a loosely typed and dynamic language.
-          Variables in JavaScript are not directly associated with any
-          particular value type, and any variable can be assigned (and
-          re-assigned) values of all types:
-        </p>
-        <pre>let foo = 42; // foo is now a number</pre>
-        <pre>foo = ‘bar’; // foo is now a string</pre>
-        <pre>foo = true; // foo is now a boolean</pre>
+        <p>{activeArticle.body}</p>
       </ArticleContent>
     </>
   )

@@ -41,6 +41,11 @@ export const PostContainer = styled.div`
   grid-template-rows: repeat(16.25rem);
   column-gap: 2rem;
   row-gap: 2rem;
+
+  a {
+    text-decoration: none;
+    color: ${(props) => props.theme.baseText};
+  }
 `
 
 export const PostCard = styled.div`
