@@ -49,7 +49,7 @@ export function ArticleContextProvider({ children }: ArticleContextProps) {
   const fetchArticles = useCallback(async (query?: string) => {
     console.log('getting articles')
     const q = query
-      ? encodeURI(query + ' repo:fernandofreamunde/challenge-github-blog')
+      ? encodeURI(query + 'repo:fernandofreamunde/challenge-github-blog')
       : 'repo:fernandofreamunde/challenge-github-blog'
 
     const response = await api.get('search/issues', {

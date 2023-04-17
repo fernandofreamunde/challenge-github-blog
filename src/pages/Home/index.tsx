@@ -9,9 +9,30 @@ import {
 import { ArticleContext } from '../../contexts/ArticleContext'
 import { countDateToNow } from '../../utils/formatter'
 import { Link } from 'react-router-dom'
+import * as z from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const searchFormSchema = z.object({
+  query: z.string(),
+})
+
+type SearchFormInput = z.infer<typeof searchFormSchema>
 
 export function Home() {
   const { articles, fetchArticles } = useContext(ArticleContext)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SearchFormInput>({
+    resolver: zodResolver(searchFormSchema),
+  })
+
+  async function handleSearchArticles(data: SearchFormInput) {
+    await fetchArticles(data.query)
+  }
 
   useEffect(() => {
     fetchArticles()
@@ -28,8 +49,12 @@ export function Home() {
             <span>6 publications</span>
           </div>
 
-          <form>
-            <input placeholder="Search content" />
+          <form onSubmit={handleSubmit(handleSearchArticles)}>
+            <input
+              type="text"
+              placeholder="Search content"
+              {...register('query')}
+            />
           </form>
         </SearchAndPubData>
 
